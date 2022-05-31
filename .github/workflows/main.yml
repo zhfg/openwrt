@@ -16,7 +16,7 @@ jobs:
       - name: Install building dependencies
         run: | 
           sudo apt update
-          sudo apt install build-essential gawk gcc-multilib flex git gettext libncurses5-dev libssl-dev python3-distutils zlib1g-dev
+          sudo apt install build-essential gawk gcc-multilib flex git gettext libncurses5-dev libssl-dev python3-distutils zlib1g-dev 
 
       # Runs a set of commands using the runners shell
       - name: Build OpenWrt images
@@ -27,5 +27,8 @@ jobs:
           git branch -a
           git tag
           git checkout v21.02.3
+          # Update the feeds
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
           make -j 4 kernel_menuconfig
           make -j 4 defconfig download clean world

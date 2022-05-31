@@ -1,0 +1,31 @@
+name: build openwrt image
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install building dependencies
+        run: | 
+          sudo apt update
+          sudo apt install build-essential gawk gcc-multilib flex git gettext libncurses5-dev libssl-dev python3-distutils zlib1g-dev
+
+      # Runs a set of commands using the runners shell
+      - name: Build OpenWrt images
+        run: |
+          git pull
+ 
+          # Select a specific code revision
+          git branch -a
+          git tag
+          git checkout v21.02.3
+          make -j 4 kernel_menuconfig
+          make -j 4 defconfig download clean world

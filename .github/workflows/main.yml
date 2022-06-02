@@ -27,7 +27,8 @@ jobs:
           git branch -a
           git tag
           git checkout v21.02.3
-          curl -L -o .config https://raw.githubusercontent.com/zhfg/openwrt/master/config-r2s 
+          curl -L -o .config https://raw.githubusercontent.com/zhfg/openwrt/master/config-r2s
+          cat .config
           # Update the feeds
           ./scripts/feeds update -a
           ./scripts/feeds install -a

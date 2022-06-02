@@ -33,5 +33,4 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
           make defconfig
-          make -j 4 kernel_menuconfig
-          make -j 4 defconfig download clean world
+          make -j 1 defconfig download clean world
